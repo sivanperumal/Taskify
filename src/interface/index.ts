@@ -1,6 +1,7 @@
 export interface todoGroup {
   groupId: number;
   name: string;
+  isOpen: boolean;
 }
 export interface todoList {
   listId: number;
@@ -9,14 +10,20 @@ export interface todoList {
 }
 export interface todoTask {
   taskId: number;
-  listId: number | null;
+  listId: number;
   groupId: number | null;
   name: string;
 }
+export interface todoSelectedId {
+  generateListByGroupId: number | null;
+  generateTaskByListId: number;
+  generateTaskByGroupId: number | null;
+}
 export interface todoState {
-  group: todoGroup[];
-  list: todoList[];
-  task: todoTask[];
+  groupItems: todoGroup[];
+  listItems: todoList[];
+  taskItems: todoTask[];
+  selectedIds: todoSelectedId;
 }
 export interface users {
   username: string;

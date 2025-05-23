@@ -1,7 +1,8 @@
 import type React from "react";
+import TaskLayout from "../../components/TaskLayout";
 
 const List: React.FC = () => {
-  return <h1>Todo list</h1>;
+  return <TaskLayout />;
 };
 
 export default List;
