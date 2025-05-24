@@ -1,4 +1,4 @@
-import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router";
+import { Route, BrowserRouter as Router, Routes } from "react-router";
 import SignIn from "./pages/Authentication/SiginIn";
 import SignUp from "./pages/Authentication/SignUp";
 import MainLayout from "./components/MainLayout";
@@ -13,10 +13,7 @@ function App() {
         <Route path="signup" element={<SignUp />} />
         <Route element={<MainLayout />}>
           <Route element={<ProtectedRoute />}>
-            <Route path="todo">
-              <Route index element={<Navigate to="/todo/list" />} />
-              <Route path="list" element={<TodoList />} />
-            </Route>
+            <Route path="todo" element={<TodoList />} />
           </Route>
         </Route>
       </Routes>

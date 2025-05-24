@@ -36,13 +36,13 @@ const SignIn: React.FC = () => {
     // Add API call or logic here
     dispatch(userLogin(formData));
     if (isAuthenticated) {
-      navigate("/todo/list");
+      navigate("/todo");
     }
   };
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/todo/list");
+      navigate("/todo");
     }
   }, [isAuthenticated, navigate]);
 
