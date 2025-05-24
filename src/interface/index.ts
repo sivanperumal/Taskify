@@ -13,6 +13,7 @@ export interface todoTask {
   listId: number;
   groupId: number | null;
   name: string;
+  completed: boolean;
 }
 export interface todoSelectedId {
   generateListByGroupId: number | null;
@@ -24,6 +25,7 @@ export interface todoState {
   listItems: todoList[];
   taskItems: todoTask[];
   selectedIds: todoSelectedId;
+  filteredTask: todoTask[];
 }
 export interface users {
   username: string;

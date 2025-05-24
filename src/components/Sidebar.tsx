@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -10,19 +10,23 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import NoteAddOutlinedIcon from "@mui/icons-material/NoteAddOutlined";
 import { todoGroup, todoList } from "../interface";
-import { useTodo } from "../redux/slices/todo.slice";
+import { filteredTask, useTodo } from "../redux/slices/todo.slice";
 import GroupItems from "./GroupItems";
 import ListItems from "./ListItems";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
 
 const Sidebar: React.FC = () => {
   const username = "John Doe";
   const email = "john@example.com";
-  const { groupItems, listItems, selectedIds } = useTodo();
+  const dispatch = useDispatch<AppDispatch>();
+  const { groupItems, listItems, taskItems, selectedIds } = useTodo();
   const [groups, setGroups] = useState<todoGroup>();
   const [lists, setLists] = useState<todoList>();
+  const [searchTask, setSearchTask] = useState<string>("");
   const addNewGroup = () => {
     setGroups({
-      groupId: groupItems.length + 1,
+      groupId: Date.now() - Math.floor(Math.random() * 1000),
       name: `Untitled group ${
         groupItems.length !== 0 ? groupItems.length : ""
       }`,
@@ -31,13 +35,27 @@ const Sidebar: React.FC = () => {
   };
   const addNewList = () => {
     setLists({
-      listId: listItems.length + 1,
+      listId: Date.now() - Math.floor(Math.random() * 1000),
       groupId: selectedIds.generateListByGroupId
         ? selectedIds.generateListByGroupId
         : null,
       name: `United list ${listItems.length !== 0 ? listItems.length : ""}`,
     });
   };
+  const handleOnSearchTask = (value: string) => {
+    setSearchTask(value);
+  };
+
+  useEffect(() => {
+    if (searchTask.trim() !== "") {
+      const FilteredTask = taskItems.filter((task) => {
+        return task.name.toLowerCase().includes(searchTask.toLowerCase());
+      });
+      dispatch(filteredTask(FilteredTask));
+    } else {
+      dispatch(filteredTask([]));
+    }
+  }, [searchTask, taskItems, dispatch]);
 
   return (
     <Box
@@ -67,6 +85,7 @@ const Sidebar: React.FC = () => {
           variant="outlined"
           placeholder="Search..."
           size="small"
+          onChange={(e) => handleOnSearchTask(e.target.value)}
         />
       </Box>
 

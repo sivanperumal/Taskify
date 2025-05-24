@@ -6,13 +6,16 @@ import {
   ListItemIcon,
   Divider,
   Typography,
+  IconButton,
 } from "@mui/material";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { todoList } from "../interface";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import {
   createListItems,
+  removeList,
   updateSelectedIds,
   useTodo,
 } from "../redux/slices/todo.slice";
@@ -33,6 +36,9 @@ const ListItems: React.FC<ListItemsProps> = (props) => {
 
   const handleSelectedIds = (listId: number, groupId: null) => {
     dispatch(updateSelectedIds({ listId: listId, groupId: groupId }));
+  };
+  const handleDeleteList = (listId: number) => {
+    dispatch(removeList(listId));
   };
   useEffect(() => {
     if (data) {
@@ -63,6 +69,12 @@ const ListItems: React.FC<ListItemsProps> = (props) => {
                 >
                   {list.name}
                 </Typography>
+                <IconButton
+                  onClick={() => handleDeleteList(list.listId)}
+                  sx={{ color: "#333" }}
+                >
+                  <DeleteIcon />
+                </IconButton>
               </ListItem>
             );
           })}

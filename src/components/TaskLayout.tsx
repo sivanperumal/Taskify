@@ -27,10 +27,11 @@ const TaskLayout: React.FC = () => {
     task: string
   ) => {
     setTask({
-      taskId: taskItems.length > 0 ? taskItems.length + 1 : 1,
+      taskId: Date.now() - Math.floor(Math.random() * 1000),
       listId: listId,
       groupId: groupId,
       name: task,
+      completed: false,
     });
   };
   const handleAddTask = () => {
@@ -40,6 +41,7 @@ const TaskLayout: React.FC = () => {
       listId: selectedIds.generateTaskByListId,
       groupId: selectedIds.generateTaskByGroupId,
       name: "",
+      completed: false,
     });
   };
   const selectedListObj = useMemo(() => {
@@ -55,7 +57,10 @@ const TaskLayout: React.FC = () => {
         task.listId === selectedIds.generateTaskByListId &&
         task.groupId === selectedIds.generateTaskByGroupId
     );
-    return tasks;
+    const sortedTask = [...tasks].sort((a, b) => {
+      return Number(a.completed) - Number(b.completed);
+    });
+    return sortedTask;
   }, [
     taskItems,
     selectedIds.generateTaskByListId,
@@ -111,42 +116,43 @@ const TaskLayout: React.FC = () => {
             })}
         </List>
       </Box>
-
-      <Paper
-        elevation={3}
-        sx={{
-          px: 2,
-          py: 1,
-          display: "flex",
-          alignItems: "center",
-          position: "sticky",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          backgroundColor: "#3b5eb5",
-          color: "white",
-          borderTopLeftRadius: 0,
-          borderTopRightRadius: 0,
-        }}
-      >
-        <AddIcon sx={{ mr: 1 }} />
-        <InputBase
-          fullWidth
-          placeholder="Add a Task"
-          sx={{ color: "white" }}
-          value={task?.name}
-          onChange={(e) =>
-            handleOnChangeTask(
-              selectedIds?.generateTaskByListId,
-              selectedIds?.generateTaskByGroupId,
-              e.target.value
-            )
-          }
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleAddTask();
+      {selectedIds.generateTaskByListId !== 0 && (
+        <Paper
+          elevation={3}
+          sx={{
+            px: 2,
+            py: 1,
+            display: "flex",
+            alignItems: "center",
+            position: "sticky",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: "#3b5eb5",
+            color: "white",
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0,
           }}
-        />
-      </Paper>
+        >
+          <AddIcon sx={{ mr: 1 }} />
+          <InputBase
+            fullWidth
+            placeholder="Add a Task"
+            sx={{ color: "white" }}
+            value={task?.name}
+            onChange={(e) =>
+              handleOnChangeTask(
+                selectedIds?.generateTaskByListId,
+                selectedIds?.generateTaskByGroupId,
+                e.target.value
+              )
+            }
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleAddTask();
+            }}
+          />
+        </Paper>
+      )}
     </Box>
   );
 };
