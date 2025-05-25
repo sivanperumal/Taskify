@@ -96,7 +96,10 @@ const GroupItems: React.FC<GroupItemsProps> = (props) => {
                           cursor: "pointer",
                         },
                       }}
-                      inputProps={{ style: { fontWeight: 500 } }}
+                      inputProps={{
+                        style: { fontWeight: 500 },
+                        "data-testid": "groupname-text",
+                      }}
                       onChange={(e) =>
                         handleGroupNameChange(group.groupId, e.target.value)
                       }
@@ -106,6 +109,7 @@ const GroupItems: React.FC<GroupItemsProps> = (props) => {
                       onClick={() =>
                         handleDeleteItems(group.groupId, "groupItem")
                       }
+                      data-testid="groupname-delete"
                       sx={{ color: "#333" }}
                     >
                       <DeleteIcon />
@@ -113,6 +117,7 @@ const GroupItems: React.FC<GroupItemsProps> = (props) => {
                     <IconButton
                       size="small"
                       onClick={() => toggleGroupOpen(group.groupId)}
+                      data-testid="group-toggle"
                     >
                       {group.isOpen ? (
                         <ArrowDropDownIcon fontSize="small" />
@@ -148,6 +153,7 @@ const GroupItems: React.FC<GroupItemsProps> = (props) => {
                                 onClick={() =>
                                   handleSelectedIds(item.listId, group.groupId)
                                 }
+                                data-testid="listname-select"
                               >
                                 {item.name}
                               </Typography>
@@ -155,6 +161,7 @@ const GroupItems: React.FC<GroupItemsProps> = (props) => {
                                 onClick={() =>
                                   handleDeleteItems(item.listId, "listItem")
                                 }
+                                data-testid="listname-delete"
                                 sx={{ color: "#333" }}
                               >
                                 <DeleteIcon />
