@@ -81,6 +81,7 @@ const Sidebar: React.FC = () => {
         <Divider sx={{ my: 2 }} />
 
         <TextField
+          label="searchByText"
           fullWidth
           variant="outlined"
           placeholder="Search..."
@@ -110,7 +111,7 @@ const Sidebar: React.FC = () => {
       >
         {/* Left: Add icon + text */}
         <Stack direction="row" alignItems="center" spacing={1}>
-          <IconButton onClick={addNewList}>
+          <IconButton onClick={addNewList} data-testid="add-list">
             <AddIcon fontSize="small" />
           </IconButton>
           <Typography variant="body1" fontWeight={500}>
@@ -119,7 +120,7 @@ const Sidebar: React.FC = () => {
         </Stack>
 
         {/* Right: Note with + icon */}
-        <IconButton size="small" onClick={addNewGroup}>
+        <IconButton size="small" onClick={addNewGroup} data-testid="add-group">
           <NoteAddOutlinedIcon />
         </IconButton>
       </Box>

@@ -65,6 +65,7 @@ const ListItems: React.FC<ListItemsProps> = (props) => {
                     px: 1,
                     cursor: "pointer",
                   }}
+                  data-testid="groupname-nulled"
                   onClick={() => handleSelectedIds(list.listId, null)}
                 >
                   {list.name}
@@ -72,6 +73,7 @@ const ListItems: React.FC<ListItemsProps> = (props) => {
                 <IconButton
                   onClick={() => handleDeleteList(list.listId)}
                   sx={{ color: "#333" }}
+                  data-testid="listname-delete"
                 >
                   <DeleteIcon />
                 </IconButton>

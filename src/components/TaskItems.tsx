@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Checkbox, IconButton, InputBase, ListItem } from "@mui/material";
+import { Box, IconButton, InputBase, ListItem } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { todoTask } from "../interface";
 import { removetTask, updateTask, useTodo } from "../redux/slices/todo.slice";
@@ -45,9 +45,11 @@ const TaskItems: React.FC<TaskItemProps> = (props) => {
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Checkbox
+        <input
+          type="checkbox"
           checked={isCompletedTask(data.taskId)}
           onChange={() => handleToggle(data.taskId)}
+          data-testid="task-toggle"
         />
         <InputBase
           value={data.name}
@@ -58,12 +60,13 @@ const TaskItems: React.FC<TaskItemProps> = (props) => {
             },
             textDecoration: data.completed ? "line-through" : "none",
           }}
-          inputProps={{ style: { fontWeight: 500 } }}
           onChange={(e) => handleOnChangeTask(data.taskId, e.target.value)}
+          inputProps={{ "data-testid": "taskname-text" }}
         />
         <IconButton
           onClick={() => handleDeleteTask(data.taskId)}
           sx={{ color: "#333" }}
+          data-testid="task-delete"
         >
           <DeleteIcon />
         </IconButton>

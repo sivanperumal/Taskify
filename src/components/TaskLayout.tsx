@@ -105,6 +105,7 @@ const TaskLayout: React.FC = () => {
             onChange={(e) =>
               handleListNameChange(selectedListObj?.listId, e.target.value)
             }
+            inputProps={{ "data-testid": "list-name-text" }}
           />
         )}
       </Box>
@@ -150,6 +151,7 @@ const TaskLayout: React.FC = () => {
             onKeyDown={(e) => {
               if (e.key === "Enter") handleAddTask();
             }}
+            inputProps={{ "data-testid": "taskname-text" }}
           />
         </Paper>
       )}
