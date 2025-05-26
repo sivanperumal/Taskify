@@ -7,9 +7,9 @@ const initialState: userState = {
   userList: localStorage.getItem("userLists")
     ? JSON.parse(localStorage.getItem("userLists") || "[]")
     : [],
-  isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated") || "[]")
-    ? true
-    : false,
+  isAuthenticated: JSON.parse(
+    localStorage.getItem("isAuthenticated") ?? "false"
+  ),
 };
 
 const userSlice = createSlice({
@@ -35,9 +35,13 @@ const userSlice = createSlice({
       localStorage.setItem("isAuthenticated", authenticate.toString());
       state.isAuthenticated = authenticate;
     },
+    userLogout: (state) => {
+      state.isAuthenticated = false;
+      localStorage.removeItem("isAuthenticated");
+    },
   },
 });
-export const { userRegister, userLogin } = userSlice.actions;
+export const { userRegister, userLogin, userLogout } = userSlice.actions;
 export const useUser = () => {
   const userObj = useSelector((state: RootState) => state.user);
   return { ...userObj };

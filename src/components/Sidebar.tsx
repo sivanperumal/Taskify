@@ -6,15 +6,18 @@ import {
   IconButton,
   Stack,
   Divider,
+  Button,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import NoteAddOutlinedIcon from "@mui/icons-material/NoteAddOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { todoGroup, todoList } from "../interface";
 import { filteredTask, useTodo } from "../redux/slices/todo.slice";
 import GroupItems from "./GroupItems";
 import ListItems from "./ListItems";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
+import { userLogout } from "../redux/slices/user.slice";
 
 const Sidebar: React.FC = () => {
   const username = "John Doe";
@@ -45,7 +48,9 @@ const Sidebar: React.FC = () => {
   const handleOnSearchTask = (value: string) => {
     setSearchTask(value);
   };
-
+  const handleSignOut = () => {
+    dispatch(userLogout());
+  };
   useEffect(() => {
     if (searchTask.trim() !== "") {
       const FilteredTask = taskItems.filter((task) => {
@@ -71,12 +76,34 @@ const Sidebar: React.FC = () => {
     >
       {/* Top: User Info & Search */}
       <Box>
-        <Typography variant="h6" fontWeight="bold">
-          {username}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
-          {email}
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            px: 2,
+            py: 1.5,
+          }}
+        >
+          <Box sx={{ paddingRight: "9px" }}>
+            <Typography variant="h6" fontWeight="bold">
+              {username}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              {email}
+            </Typography>
+          </Box>
+          <Button
+            variant="contained"
+            color="error"
+            fullWidth
+            startIcon={<LogoutIcon />}
+            onClick={handleSignOut}
+            data-testid="signout-btn"
+          >
+            Sign Out
+          </Button>
+        </Box>
 
         <Divider sx={{ my: 2 }} />
 

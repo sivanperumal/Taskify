@@ -89,4 +89,15 @@ describe("TaskItem Component", () => {
     expect(addListEle).toBeInTheDocument();
     fireEvent.click(addListEle);
   });
+
+  test("Signout Action", () => {
+    render(
+      <Provider store={setupStore()}>
+        <Sidebar />
+      </Provider>
+    );
+    const signoutBtn = screen.getByTestId("signout-btn");
+    expect(signoutBtn).toBeInTheDocument();
+    fireEvent.click(signoutBtn);
+  });
 });
