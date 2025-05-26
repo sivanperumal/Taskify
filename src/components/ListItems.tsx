@@ -20,7 +20,7 @@ import {
   useTodo,
 } from "../redux/slices/todo.slice";
 interface ListItemsProps {
-  data: todoList;
+  data: todoList | undefined;
 }
 const ListItems: React.FC<ListItemsProps> = (props) => {
   const { data } = props;

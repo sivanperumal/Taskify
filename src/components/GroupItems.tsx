@@ -27,7 +27,7 @@ import {
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 interface GroupItemsProps {
-  data: todoGroup;
+  data: todoGroup | undefined;
 }
 const GroupItems: React.FC<GroupItemsProps> = (props) => {
   const { data } = props;

@@ -21,8 +21,8 @@ const Sidebar: React.FC = () => {
   const email = "john@example.com";
   const dispatch = useDispatch<AppDispatch>();
   const { groupItems, listItems, taskItems, selectedIds } = useTodo();
-  const [groups, setGroups] = useState<todoGroup>();
-  const [lists, setLists] = useState<todoList>();
+  const [groups, setGroups] = useState<todoGroup | undefined>();
+  const [lists, setLists] = useState<todoList | undefined>();
   const [searchTask, setSearchTask] = useState<string>("");
   const addNewGroup = () => {
     setGroups({
